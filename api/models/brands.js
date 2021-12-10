@@ -9,16 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 
-      Brands.hasMany(models.Beers, {
-        foreignKey: 'brand'
-      })
+      Brands.hasMany(models.Beers, { foreignKey: 'brand' })
     }
 
   }
   Brands.init({
     name: DataTypes.STRING,
     cnpj: DataTypes.STRING(14),
-    region: DataTypes.STRING
+    region: DataTypes.STRING,
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'Brands',

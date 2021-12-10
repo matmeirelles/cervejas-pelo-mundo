@@ -19,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     brand: DataTypes.INTEGER,
     ibu: DataTypes.INTEGER,
     alcohol: DataTypes.FLOAT,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'Beers',
