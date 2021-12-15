@@ -1,5 +1,7 @@
 const BeersServices = require('./BeersServices')
+const BrandsServices = require('./BrandsServices')
 
 module.exports = {
-  BeersServices: BeersServices
+  BeersServices: BeersServices,
+  BrandsServices: BrandsServices
 }

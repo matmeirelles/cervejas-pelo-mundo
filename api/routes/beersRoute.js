@@ -1,17 +1,15 @@
 const router = require('express').Router()
-const BeersController = require('../controllers/BeersController')
+const { BeersController } = require('../controllers')
 
 //Beers
-router.get('/beers', BeersController.listAllBeers)
+router.route('/')
+  .get(BeersController.listAllBeers)
+  .post(BeersController.createBeer)
 
-router.get('/beers/:beerId', BeersController.listUniqueBeer)
-
-router.post('/beers', BeersController.createBeer)
-
-router.patch('/beers/:beerId', BeersController.updateBeer)
-
-router.delete('/beers/:beerId', BeersController.deleteBeer)
-
-router.post('/beers/:beerId', BeersController.restoreBeer)
+router.route('/:beerId')
+  .get(BeersController.listUniqueBeer)
+  .patch(BeersController.updateBeer)
+  .delete(BeersController.deleteBeer)
+  .post(BeersController.restoreBeer)
 
 module.exports = router

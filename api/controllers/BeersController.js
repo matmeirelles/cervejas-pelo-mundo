@@ -1,6 +1,5 @@
 // const database = require('../models')
 const { BeersServices } = require('../services')
-const { findUniqueElement } = require('../services/BeersServices')
 
 class BeersController {
 
@@ -75,7 +74,6 @@ class BeersController {
       await BeersServices.removeElement(beerId)
 
       return res.status(200).json({ message: `cerveja de id ${beerId} removida com sucesso` })
-
     } catch (err) {
       res.status(500).json({ message: err })
     }
