@@ -1,4 +1,5 @@
 const { BrandsServices } = require('../services')
+const database = require('../models')
 
 class BrandsController {
 
@@ -14,6 +15,7 @@ class BrandsController {
   static async listUniqueBrand(req, res) {
     try {
       const { brandId } = req.params
+      console.log(brandId)
       const brand = await BrandsServices.findUniqueElement(brandId)
 
       if (!brand) {
@@ -23,6 +25,19 @@ class BrandsController {
       return res.status(200).json(brand)
     } catch (err) {
       return res.status(500).json(err)
+    }
+  }
+
+  static async listAllBeersFromBrand(req, res) {
+    try {
+      const { brandId } = req.params
+      const brand = await BrandsServices.findUniqueElement(brandId)
+
+      const allBeersFromBrand = await BrandsServices.findAllBeers(brandId)
+
+      res.status(200).json({ [brand.name]: allBeersFromBrand })
+    } catch (err) {
+      res.status(500).json(err)
     }
   }
 
@@ -65,7 +80,7 @@ class BrandsController {
         return res.status(404).json({ message: `marca de id ${brandId} não existe` })
       }
 
-      await BrandsServices.removeElement(brandId)
+      await BrandsServices.removeBrand(brandId)
       return res.status(200).json({ message: `Marca de id ${brandId} foi removida com sucesso` })
     } catch (err) {
       return res.status(500).json(err)
@@ -81,7 +96,7 @@ class BrandsController {
         return res.status(404).json({ message: `marca de id ${brandId} não existe` })
       }
 
-      await BrandsServices.restoreElement(brandId)
+      await BrandsServices.restoreBrand(brandId)
       brandToRestore = await BrandsServices.findUniqueElement(brandId)
 
       return res.status(200).json(brandToRestore)

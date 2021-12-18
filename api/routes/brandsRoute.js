@@ -11,4 +11,7 @@ router.route('/:brandId')
   .delete(BrandsController.deleteBrand)
   .post(BrandsController.restoreBrand)
 
+router.route('/:brandId/beers')
+  .get(BrandsController.listAllBeersFromBrand)
+
 module.exports = router
